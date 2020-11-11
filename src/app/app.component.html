@@ -1,11 +1,177 @@
-<div class="container">
+<div class="container border">
 	<form [formGroup]="resume">
+    <br>
 		<div class="row">
-			<div class="col-md-6">
-				<input type="text" class="form-control" formControlName="name" placeholder="Enter name">
+			<div class="col-md-12">
+				<input type="text" class="form-control form-control-lg" formControlName="heading" placeholder="Resume Head" style="text-align: center">
       </div>
     </div>
+
     <br>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-2">
+            <label class="font-weight-bold">Name</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control form-control-sm" formControlName="name" placeholder="Name">
+          </div>
+        </div>
+        <br>
+        <div class="row" formGroupName="address">
+          <div class="col-md-2">
+            <label class="font-weight-bold">Address</label>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Address Line 1">
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Address Line 2">
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Address Line 3">
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="font-weight-bold">Phone</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control form-control-sm" formControlName="phone" placeholder="Phone Number">
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-2">
+            <label class="font-weight-bold">Email</label>
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control form-control-sm" formControlName="email" placeholder="Email">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="font-weight-bolder"><u>CAREER OBJECTIVE</u></label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" class="form-control" formControlName="careerObjective" placeholder="Career Objective">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="font-weight-bolder"><u>EDUCATIONAL QUALIFICATION</u></label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table" formArrayName="educationalQualifications">
+              <thead>
+                <tr>
+                  <th>Degree/Certificates</th>
+                  <th>Institution/Board</th>
+                  <th>Year</th>
+                  <th>CGPA/Percentage</th>
+                  <th *ngIf="resume.controls.educationalQualifications.controls.length > 1">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let eachDegree of resume.controls.educationalQualifications.controls; let degreeIndex=index" [formGroupName]="degreeIndex">
+                  <td>
+                    <input type="text" class=" form-control form-control-sm" formControlName="degree" placeholder="Eg: B.Tech, CSE">
+                  </td>
+                  <td>
+                    <input type="text" class=" form-control form-control-sm" formControlName="board" placeholder="Eg: MANIT">
+                  </td>
+                  <td>
+                    <input type="text" class=" form-control form-control-sm" formControlName="year" placeholder="Eg: 2014-2018">
+                  </td>
+                  <td>
+                    <input type="text" class=" form-control form-control-sm" formControlName="percentage" placeholder="Eg: 8.0">
+                  </td>
+                  <td *ngIf="resume.controls.educationalQualifications.controls.length > 1">
+                    <button class="btn btn-danger btn-sm" (click)="deleteEducationalQualificationRow(degreeIndex)" title="Click to delete this qualification">-</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-dark btn-sm float-right" (click)="insertEducationalQualificationRow()" title="Click to add another qualification">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="font-weight-bolder"><u>TECHNICAL SKILLS</u></label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table" formArrayName="technicalSkills">
+              <thead>
+                <tr class="d-flex">
+                  <th class="col-md-4">Skill Category</th>
+                  <th [class]="resume.controls.technicalSkills.controls.length > 1 ? 'col-md-7' : 'col-md-8'">Skill List</th>
+                  <th class="col-md-1" *ngIf="resume.controls.technicalSkills.controls.length > 1">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="d-flex" *ngFor="let eachDegree of resume.controls.technicalSkills.controls; let skillIndex=index" [formGroupName]="skillIndex">
+                  <td class="col-md-4">
+                    <input type="text" class=" form-control form-control-sm" formControlName="skillCategory" placeholder="Eg: Software Languages">
+                  </td>
+                  <td [class]="resume.controls.technicalSkills.controls.length > 1 ? 'col-md-7': 'col-md-8'">
+                    <input type="text" class=" form-control form-control-sm" formControlName="skillList" placeholder="Eg: C, C++, Java, Python ...">
+                  </td>
+                  <td class="col-md-1" *ngIf="resume.controls.technicalSkills.controls.length > 1">
+                    <button class="btn btn-danger btn-sm" (click)="deleteTechnicalSkillRow(skillIndex)" title="Click to delete this skill">-</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-dark btn-sm float-right" (click)="insertTechnicalSkillRow()" title="Click to add another skill">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
     <div class="row">
       {{resume.getRawValue() | json}}
     </div>

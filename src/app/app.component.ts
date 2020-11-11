@@ -13,13 +13,15 @@ import {
 })
 export class AppComponent {
   public resume = new FormGroup({
+    heading: new FormControl(""),
     name: new FormControl(""),
     address: new FormGroup({
       line1: new FormControl(""),
       line2: new FormControl(""),
-      line3: new FormControl(""),
-      line4: new FormControl("")
+      line3: new FormControl("")
     }),
+    phone: new FormControl(""),
+    email: new FormControl(""),
     careerObjective: new FormControl(""),
     educationalQualifications: new FormArray([
       getNewEducationalQualificationRow()
@@ -29,4 +31,26 @@ export class AppComponent {
   });
 
   constructor() {}
+
+  insertEducationalQualificationRow() {
+    (this.resume.controls["educationalQualifications"] as FormArray).push(
+      getNewEducationalQualificationRow()
+    );
+  }
+
+  deleteEducationalQualificationRow(degreeIndex) {
+    (this.resume.controls["educationalQualifications"] as FormArray).removeAt(
+      degreeIndex
+    );
+  }
+
+  insertTechnicalSkillRow() {
+    (this.resume.controls["technicalSkills"] as FormArray).push(
+      getNewTechnicalSkillsRow()
+    );
+  }
+
+  deleteTechnicalSkillRow(skillIndex) {
+    (this.resume.controls["technicalSkills"] as FormArray).removeAt(skillIndex);
+  }
 }
