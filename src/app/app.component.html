@@ -1,4 +1,13 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div class="container">
+	<form [formGroup]="resume">
+		<div class="row">
+			<div class="col-md-6">
+				<input type="text" class="form-control" formControlName="name" placeholder="Enter name">
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      {{resume.getRawValue() | json}}
+    </div>
+	</form>
+</div>
