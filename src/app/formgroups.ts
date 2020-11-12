@@ -41,3 +41,10 @@ export function getNewJobDetailsRow(): FormGroup {
     })
   });
 }
+
+export function getNewProfileLinkRow(): FormGroup {
+  return new FormGroup({
+    appName: new FormControl(''),
+    profileLink: new FormControl('')
+  });
+}

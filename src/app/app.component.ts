@@ -1,9 +1,11 @@
+import { DatePipe } from "@angular/common";
 import { Component, VERSION } from "@angular/core";
 import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import {
   getNewEducationalQualificationRow,
   getNewGraduateCourseProjectRow,
   getNewJobDetailsRow,
+  getNewProfileLinkRow,
   getNewTechnicalSkillsRow
 } from "./formgroups";
 
@@ -13,7 +15,7 @@ import {
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
-  public resume = new FormGroup({
+  private resume = new FormGroup({
     heading: new FormControl(""),
     name: new FormControl(""),
     address: new FormGroup({
@@ -30,10 +32,19 @@ export class AppComponent {
     technicalSkills: new FormArray([getNewTechnicalSkillsRow()]),
     graduateCourseProjects: new FormArray([getNewGraduateCourseProjectRow()]),
     internships: new FormArray([getNewJobDetailsRow()]),
-    workExperience: new FormArray([getNewJobDetailsRow()])
+    workExperience: new FormArray([getNewJobDetailsRow()]),
+    coCurricularActivities: new FormGroup({
+      line1: new FormControl(""),
+      line2: new FormControl(""),
+      line3: new FormControl("")
+    }),
+    profileLinks: new FormArray([getNewProfileLinkRow()]),
+    languagesKnown: new FormControl(""),
+    date: new FormControl(this.datePipe.transform(Date.now())),
+    place: new FormControl("")
   });
 
-  constructor() {}
+  constructor(private datePipe: DatePipe) {}
 
   insertEducationalQualificationRow() {
     (this.resume.controls["educationalQualifications"] as FormArray).push(
@@ -89,5 +100,17 @@ export class AppComponent {
 
   deleteWorkExperienceDetails(workIndex) {
     (this.resume.controls["workExperience"] as FormArray).removeAt(workIndex);
+  }
+
+  insertProfileLinkRow() {
+    (this.resume.controls["profileLinks"] as FormArray).push(
+      getNewProfileLinkRow()
+    );
+  }
+
+  deleteProfileLinkRow(profileLinkIndex) {
+    (this.resume.controls["profileLinks"] as FormArray).removeAt(
+      profileLinkIndex
+    );
   }
 }

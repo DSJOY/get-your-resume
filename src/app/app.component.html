@@ -295,7 +295,7 @@
         <br>
         <div class="row">
           <div class="col-md-12">
-            <button class="btn btn-dark btn-sm float-right" (click)="insertNewInternshipDetails()" title="Click to add another project">+</button>
+            <button class="btn btn-dark btn-sm float-right" (click)="insertNewInternshipDetails()" title="Click to add another internship details">+</button>
           </div>
         </div>
       </div>
@@ -377,7 +377,7 @@
         <br>
         <div class="row">
           <div class="col-md-12">
-            <button class="btn btn-dark btn-sm float-right" (click)="insertNewWorkExperienceDetails()" title="Click to add another project">+</button>
+            <button class="btn btn-dark btn-sm float-right" (click)="insertNewWorkExperienceDetails()" title="Click to add another work experience details">+</button>
           </div>
         </div>
       </div>
@@ -386,7 +386,133 @@
     <br>
 
     <div class="row">
-      {{resume.getRawValue() | json}}
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="font-weight-bolder"><u>CO-CURRICULAR ACTIVITIES</u></label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" formGroupName="coCurricularActivities">
+            <ul>
+              <li>
+                <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
+              </li>
+              <li>
+                <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
+              </li>
+              <li>
+                <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="font-weight-bolder"><u>PROFILE LINKS</u></label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <table class="table" formArrayName="profileLinks">
+              <thead>
+                <tr class="d-flex">
+                  <th class="col-md-3">App Name</th>
+                  <th [class]="resume.controls.profileLinks.controls.length > 1 ? 'col-md-8' : 'col-md-9'">Link To Profile</th>
+                  <th class="col-md-1" *ngIf="resume.controls.profileLinks.controls.length > 1">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="d-flex" *ngFor="let eachProfileLink of resume.controls.profileLinks.controls; let profileLinkIndex=index" [formGroupName]="profileLinkIndex">
+                  <td class="col-md-3">
+                    <input type="text" class=" form-control form-control-sm" formControlName="appName" placeholder="Eg: Git Hub">
+                  </td>
+                  <td [class]="resume.controls.profileLinks.controls.length > 1 ? 'col-md-8': 'col-md-9'">
+                    <input type="text" class=" form-control form-control-sm" formControlName="profileLink" placeholder="Eg: https://github.com/XYZ">
+                  </td>
+                  <td class="col-md-1" *ngIf="resume.controls.profileLinks.controls.length > 1">
+                    <button class="btn btn-danger btn-sm" (click)="deleteProfileLinkRow(profileLinkIndex)" title="Click to delete this profile">-</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <button class="btn btn-dark btn-sm float-right" (click)="insertProfileLinkRow()" title="Click to add another profile">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <label class="font-weight-bolder"><u>LANGUAGES KNOWN</u></label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <input type="text" class=" form-control form-control-sm" formControlName="languagesKnown" placeholder="Eg: Hindi, English, Punjabi">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-1">
+            <label class="font-weight-bolder">DATE</label>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control form-control-sm" formControlName="date">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1">
+            <label class="font-weight-bolder">PLACE</label>
+          </div>
+          <div class="col-md-3">
+            <input type="text" class="form-control form-control-sm" formControlName="place" placeholder="Eg: Mumbai">
+          </div>
+          <div class="col-md-8">
+            <div class="row float-right">
+              <div class="col-md-12">
+                <label class="font-weight-bolder">
+                  {{resume.controls.name.value.toUpperCase()}}
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
 	</form>
+</div>
+<br>
+<div class="container">
+  <div class="row float-right">
+    <button class="btn btn-primary">Download PDF</button>
+  </div>
 </div>
