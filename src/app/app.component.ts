@@ -3,6 +3,7 @@ import { FormArray, FormControl, FormGroup } from "@angular/forms";
 import {
   getNewEducationalQualificationRow,
   getNewGraduateCourseProjectRow,
+  getNewJobDetailsRow,
   getNewTechnicalSkillsRow
 } from "./formgroups";
 
@@ -27,7 +28,9 @@ export class AppComponent {
       getNewEducationalQualificationRow()
     ]),
     technicalSkills: new FormArray([getNewTechnicalSkillsRow()]),
-    graduateCourseProjects: new FormArray([getNewGraduateCourseProjectRow()])
+    graduateCourseProjects: new FormArray([getNewGraduateCourseProjectRow()]),
+    internships: new FormArray([getNewJobDetailsRow()]),
+    workExperience: new FormArray([getNewJobDetailsRow()])
   });
 
   constructor() {}
@@ -52,5 +55,39 @@ export class AppComponent {
 
   deleteTechnicalSkillRow(skillIndex) {
     (this.resume.controls["technicalSkills"] as FormArray).removeAt(skillIndex);
+  }
+
+  insertGraduateCourseProject() {
+    (this.resume.controls["graduateCourseProjects"] as FormArray).push(
+      getNewGraduateCourseProjectRow()
+    );
+  }
+
+  deleteGraduateCourseProject(projectIndex) {
+    (this.resume.controls["graduateCourseProjects"] as FormArray).removeAt(
+      projectIndex
+    );
+  }
+
+  insertNewInternshipDetails() {
+    (this.resume.controls["internships"] as FormArray).push(
+      getNewJobDetailsRow()
+    );
+  }
+
+  deleteInternshipDetails(internshipIndex) {
+    (this.resume.controls["internships"] as FormArray).removeAt(
+      internshipIndex
+    );
+  }
+
+  insertNewWorkExperienceDetails() {
+    (this.resume.controls["workExperience"] as FormArray).push(
+      getNewJobDetailsRow()
+    );
+  }
+
+  deleteWorkExperienceDetails(workIndex) {
+    (this.resume.controls["workExperience"] as FormArray).removeAt(workIndex);
   }
 }

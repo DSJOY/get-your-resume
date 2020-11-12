@@ -18,11 +18,26 @@ export function getNewTechnicalSkillsRow(): FormGroup {
 
 export function getNewGraduateCourseProjectRow(): FormGroup {
   return new FormGroup({
-    ProjectHeading: new FormControl(''),
+    projectHeading: new FormControl(''),
     projectDescription: new FormGroup({
       line1: new FormControl(''),
       line2: new FormControl(''),
       line3: new FormControl('')
+    })
+  });
+}
+
+export function getNewJobDetailsRow(): FormGroup {
+  return new FormGroup({
+    orgName: new FormControl(''),
+    managerDetails: new FormControl(''),
+    role: new FormControl(''),
+    duration: new FormControl(''),
+    jobDescription: new FormGroup({
+      line1: new FormControl(''),
+      line2: new FormControl(''),
+      line3: new FormControl(''),
+      line4: new FormControl('')
     })
   });
 }
