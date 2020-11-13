@@ -1,497 +1,499 @@
-<div class="container border">
-	<form [formGroup]="resume">
-    <br>
-		<div class="row">
-			<div class="col-md-12">
-				<input type="text" class="form-control form-control-lg" formControlName="heading" placeholder="Resume Head" style="text-align: center">
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="row">
-          <div class="col-md-2">
-            <label class="font-weight-bold">Name</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control form-control-sm" formControlName="name" placeholder="Name">
-          </div>
-        </div>
-        <br>
-        <div class="row" formGroupName="address">
-          <div class="col-md-2">
-            <label class="font-weight-bold">Address</label>
-          </div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-12">
-                <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Address Line 1">
-              </div>
-              <div class="col-md-12">
-                <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Address Line 2">
-              </div>
-              <div class="col-md-12">
-                <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Address Line 3">
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-2">
-            <label class="font-weight-bold">Phone</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control form-control-sm" formControlName="phone" placeholder="Phone Number">
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-2">
-            <label class="font-weight-bold">Email</label>
-          </div>
-          <div class="col-md-6">
-            <input type="text" class="form-control form-control-sm" formControlName="email" placeholder="Email">
-          </div>
+<div style="background-color: darkgrey">
+  <div class="container border" style="background-color: white">
+    <form [formGroup]="resume">
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <input type="text" class="form-control form-control-lg" formControlName="heading" placeholder="Resume Head" style="text-align: center">
         </div>
       </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>CAREER OBJECTIVE</u></label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <input type="text" class="form-control" formControlName="careerObjective" placeholder="Career Objective">
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>EDUCATIONAL QUALIFICATION</u></label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table" formArrayName="educationalQualifications">
-              <thead>
-                <tr>
-                  <th>Degree/Certificates</th>
-                  <th>Institution/Board</th>
-                  <th>Year</th>
-                  <th>CGPA/Percentage</th>
-                  <th *ngIf="resume.controls.educationalQualifications.controls.length > 1">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let eachDegree of resume.controls.educationalQualifications.controls; let degreeIndex=index" [formGroupName]="degreeIndex">
-                  <td>
-                    <input type="text" class=" form-control form-control-sm" formControlName="degree" placeholder="Eg: B.Tech, CSE">
-                  </td>
-                  <td>
-                    <input type="text" class=" form-control form-control-sm" formControlName="board" placeholder="Eg: MANIT">
-                  </td>
-                  <td>
-                    <input type="text" class=" form-control form-control-sm" formControlName="year" placeholder="Eg: 2014-2018">
-                  </td>
-                  <td>
-                    <input type="text" class=" form-control form-control-sm" formControlName="percentage" placeholder="Eg: 8.0">
-                  </td>
-                  <td *ngIf="resume.controls.educationalQualifications.controls.length > 1">
-                    <button class="btn btn-danger btn-sm" (click)="deleteEducationalQualificationRow(degreeIndex)" title="Click to delete this qualification">-</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <button class="btn btn-dark btn-sm float-right" (click)="insertEducationalQualificationRow()" title="Click to add another qualification">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>TECHNICAL SKILLS</u></label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table" formArrayName="technicalSkills">
-              <thead>
-                <tr class="d-flex">
-                  <th class="col-md-3">Skill Category</th>
-                  <th [class]="resume.controls.technicalSkills.controls.length > 1 ? 'col-md-8' : 'col-md-9'">Skill List</th>
-                  <th class="col-md-1" *ngIf="resume.controls.technicalSkills.controls.length > 1">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="d-flex" *ngFor="let eachDegree of resume.controls.technicalSkills.controls; let skillIndex=index" [formGroupName]="skillIndex">
-                  <td class="col-md-3">
-                    <input type="text" class=" form-control form-control-sm" formControlName="skillCategory" placeholder="Eg: Software Languages">
-                  </td>
-                  <td [class]="resume.controls.technicalSkills.controls.length > 1 ? 'col-md-8': 'col-md-9'">
-                    <input type="text" class=" form-control form-control-sm" formControlName="skillList" placeholder="Eg: C, C++, Java, Python ...">
-                  </td>
-                  <td class="col-md-1" *ngIf="resume.controls.technicalSkills.controls.length > 1">
-                    <button class="btn btn-danger btn-sm" (click)="deleteTechnicalSkillRow(skillIndex)" title="Click to delete this skill">-</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <button class="btn btn-dark btn-sm float-right" (click)="insertTechnicalSkillRow()" title="Click to add another skill">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>GRADUATE COURSE PROJECTS</u></label>
-          </div>
-        </div>
-        <div class="row" formArrayName="graduateCourseProjects">
-          <div class="col-md-12" *ngFor="let eachDegree of resume.controls.graduateCourseProjects.controls; let projectIndex=index" [formGroupName]="projectIndex">
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Project Subject</label>
-              </div>
-              <div [class]="resume.controls.graduateCourseProjects.controls.length > 1 ? 'col-md-9': 'col-md-10'">
-                <input type="text" class="form-control form-control-sm" formControlName="projectHeading" placeholder="Eg: Digital Banana | MANIT | Feb-Mar 2017">
-              </div>
-              <div class="col-md-1" *ngIf="resume.controls.graduateCourseProjects.controls.length > 1">
-                <button class="btn btn-danger btn-sm" (click)="deleteGraduateCourseProject(projectIndex)" title="Click to delete this project">-</button>
-              </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-2">
+              <label class="font-weight-bold">Name</label>
             </div>
-            <br>
-            <div class="row" formGroupName="projectDescription">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Project Description</label>
-              </div>
-              <div class="col-md-10 list-group">
-                <ul>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
-                  </li>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
-                  </li>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
-                  </li>
-                </ul>
+            <div class="col-md-6">
+              <input type="text" class="form-control form-control-sm" formControlName="name" placeholder="Name">
+            </div>
+          </div>
+          <br>
+          <div class="row" formGroupName="address">
+            <div class="col-md-2">
+              <label class="font-weight-bold">Address</label>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-12">
+                  <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Address Line 1">
+                </div>
+                <div class="col-md-12">
+                  <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Address Line 2">
+                </div>
+                <div class="col-md-12">
+                  <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Address Line 3">
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-12">
-            <button class="btn btn-dark btn-sm float-right" (click)="insertGraduateCourseProject()" title="Click to add another project">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>INTERNSHIPS</u></label>
-          </div>
-        </div>
-        <div class="row" formArrayName="internships">
-          <div class="col-md-12" *ngFor="let eachInternship of resume.controls.internships.controls; let internshipIndex=index" [formGroupName]="internshipIndex">
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Organisation Name</label>
-              </div>
-              <div [class]="resume.controls.internships.controls.length > 1 ? 'col-md-9': 'col-md-10'">
-                <input type="text" class="form-control form-control-sm" formControlName="orgName" placeholder="Eg: Amazon Inc. | Hyderabad">
-              </div>
-              <div class="col-md-1" *ngIf="resume.controls.internships.controls.length > 1">
-                <button class="btn btn-danger btn-sm" (click)="deleteInternshipDetails(internshipIndex)" title="Click to delete this internship details">-</button>
-              </div>
+          <br>
+          <div class="row">
+            <div class="col-md-2">
+              <label class="font-weight-bold">Phone</label>
             </div>
-            <br>
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Manager Details</label>
-              </div>
-              <div class="col-md-10">
-                <input type="text" class="form-control form-control-sm" formControlName="managerDetails" placeholder="Eg: Mr. ABC XYZ, VP - Amazon S/W services">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Role</label>
-              </div>
-              <div class="col-md-10">
-                <input type="text" class="form-control form-control-sm" formControlName="role" placeholder="Eg: SE - Backend Dev">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Duration</label>
-              </div>
-              <div class="col-md-10">
-                <input type="text" class="form-control form-control-sm" formControlName="duration" placeholder="Eg: May-June 2017">
-              </div>
-            </div>
-            <br>
-            <div class="row" formGroupName="jobDescription">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Job Description</label>
-              </div>
-              <div class="col-md-10 list-group">
-                <ul>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
-                  </li>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
-                  </li>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
-                  </li>
-                </ul>
-              </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control form-control-sm" formControlName="phone" placeholder="Phone Number">
             </div>
           </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-12">
-            <button class="btn btn-dark btn-sm float-right" (click)="insertNewInternshipDetails()" title="Click to add another internship details">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>WORK EXPERIENCE</u></label>
-          </div>
-        </div>
-        <div class="row" formArrayName="workExperience">
-          <div class="col-md-12" *ngFor="let eachInternship of resume.controls.workExperience.controls; let workIndex=index" [formGroupName]="workIndex">
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Organisation Name</label>
-              </div>
-              <div [class]="resume.controls.workExperience.controls.length > 1 ? 'col-md-9': 'col-md-10'">
-                <input type="text" class="form-control form-control-sm" formControlName="orgName" placeholder="Eg: Amazon Inc. | Hyderabad">
-              </div>
-              <div class="col-md-1" *ngIf="resume.controls.workExperience.controls.length > 1">
-                <button class="btn btn-danger btn-sm" (click)="deleteWorkExperienceDetails(workIndex)" title="Click to delete this work experience details">-</button>
-              </div>
+          <br>
+          <div class="row">
+            <div class="col-md-2">
+              <label class="font-weight-bold">Email</label>
             </div>
-            <br>
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Manager Details</label>
-              </div>
-              <div class="col-md-10">
-                <input type="text" class="form-control form-control-sm" formControlName="managerDetails" placeholder="Eg: Mr. ABC XYZ, VP - Amazon S/W services">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Role</label>
-              </div>
-              <div class="col-md-10">
-                <input type="text" class="form-control form-control-sm" formControlName="role" placeholder="Eg: SE - Backend Dev">
-              </div>
-            </div>
-            <br>
-            <div class="row">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Duration</label>
-              </div>
-              <div class="col-md-10">
-                <input type="text" class="form-control form-control-sm" formControlName="duration" placeholder="Eg: May-June 2017">
-              </div>
-            </div>
-            <br>
-            <div class="row" formGroupName="jobDescription">
-              <div class="col-md-2">
-                <label class="font-weight-bold">Job Description</label>
-              </div>
-              <div class="col-md-10 list-group">
-                <ul>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
-                  </li>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
-                  </li>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
-                  </li>
-                  <li>
-                    <input type="text" class="form-control form-control-sm" formControlName="line4" placeholder="Description Line 4">
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br>
-        <div class="row">
-          <div class="col-md-12">
-            <button class="btn btn-dark btn-sm float-right" (click)="insertNewWorkExperienceDetails()" title="Click to add another work experience details">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>CO-CURRICULAR ACTIVITIES</u></label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12" formGroupName="coCurricularActivities">
-            <ul>
-              <li>
-                <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
-              </li>
-              <li>
-                <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
-              </li>
-              <li>
-                <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>PROFILE LINKS</u></label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <table class="table" formArrayName="profileLinks">
-              <thead>
-                <tr class="d-flex">
-                  <th class="col-md-3">App Name</th>
-                  <th [class]="resume.controls.profileLinks.controls.length > 1 ? 'col-md-8' : 'col-md-9'">Link To Profile</th>
-                  <th class="col-md-1" *ngIf="resume.controls.profileLinks.controls.length > 1">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="d-flex" *ngFor="let eachProfileLink of resume.controls.profileLinks.controls; let profileLinkIndex=index" [formGroupName]="profileLinkIndex">
-                  <td class="col-md-3">
-                    <input type="text" class=" form-control form-control-sm" formControlName="appName" placeholder="Eg: Git Hub">
-                  </td>
-                  <td [class]="resume.controls.profileLinks.controls.length > 1 ? 'col-md-8': 'col-md-9'">
-                    <input type="text" class=" form-control form-control-sm" formControlName="profileLink" placeholder="Eg: https://github.com/XYZ">
-                  </td>
-                  <td class="col-md-1" *ngIf="resume.controls.profileLinks.controls.length > 1">
-                    <button class="btn btn-danger btn-sm" (click)="deleteProfileLinkRow(profileLinkIndex)" title="Click to delete this profile">-</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <button class="btn btn-dark btn-sm float-right" (click)="insertProfileLinkRow()" title="Click to add another profile">+</button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-12">
-            <label class="font-weight-bolder"><u>LANGUAGES KNOWN</u></label>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <input type="text" class=" form-control form-control-sm" formControlName="languagesKnown" placeholder="Eg: Hindi, English, Punjabi">
-          </div>
-        </div>
-      </div>
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="col-md-1">
-            <label class="font-weight-bolder">DATE</label>
-          </div>
-          <div class="col-md-3">
-            <input type="text" class="form-control form-control-sm" formControlName="date">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-1">
-            <label class="font-weight-bolder">PLACE</label>
-          </div>
-          <div class="col-md-3">
-            <input type="text" class="form-control form-control-sm" formControlName="place" placeholder="Eg: Mumbai">
-          </div>
-          <div class="col-md-8">
-            <div class="row float-right">
-              <div class="col-md-12">
-                <label class="font-weight-bolder">
-                  {{resume.controls.name.value.toUpperCase()}}
-                </label>
-              </div>
+            <div class="col-md-6">
+              <input type="text" class="form-control form-control-sm" formControlName="email" placeholder="Email">
             </div>
           </div>
         </div>
       </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>CAREER OBJECTIVE</u></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <input type="text" class="form-control" formControlName="careerObjective" placeholder="Career Objective">
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>EDUCATIONAL QUALIFICATION</u></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table" formArrayName="educationalQualifications">
+                <thead>
+                  <tr>
+                    <th>Degree/Certificates</th>
+                    <th>Institution/Board</th>
+                    <th>Year</th>
+                    <th>CGPA/Percentage</th>
+                    <th *ngIf="resume.controls.educationalQualifications.controls.length > 1">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let eachDegree of resume.controls.educationalQualifications.controls; let degreeIndex=index" [formGroupName]="degreeIndex">
+                    <td>
+                      <input type="text" class=" form-control form-control-sm" formControlName="degree" placeholder="Eg: B.Tech, CSE">
+                    </td>
+                    <td>
+                      <input type="text" class=" form-control form-control-sm" formControlName="board" placeholder="Eg: MANIT">
+                    </td>
+                    <td>
+                      <input type="text" class=" form-control form-control-sm" formControlName="year" placeholder="Eg: 2014-2018">
+                    </td>
+                    <td>
+                      <input type="text" class=" form-control form-control-sm" formControlName="percentage" placeholder="Eg: 8.0">
+                    </td>
+                    <td *ngIf="resume.controls.educationalQualifications.controls.length > 1">
+                      <button class="btn btn-danger btn-sm" (click)="deleteEducationalQualificationRow(degreeIndex)" title="Click to delete this qualification">-</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-dark btn-sm float-right" (click)="insertEducationalQualificationRow()" title="Click to add another qualification">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>TECHNICAL SKILLS</u></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table" formArrayName="technicalSkills">
+                <thead>
+                  <tr class="d-flex">
+                    <th class="col-md-3">Skill Category</th>
+                    <th [class]="resume.controls.technicalSkills.controls.length > 1 ? 'col-md-8' : 'col-md-9'">Skill List</th>
+                    <th class="col-md-1" *ngIf="resume.controls.technicalSkills.controls.length > 1">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="d-flex" *ngFor="let eachDegree of resume.controls.technicalSkills.controls; let skillIndex=index" [formGroupName]="skillIndex">
+                    <td class="col-md-3">
+                      <input type="text" class=" form-control form-control-sm" formControlName="skillCategory" placeholder="Eg: Software Languages">
+                    </td>
+                    <td [class]="resume.controls.technicalSkills.controls.length > 1 ? 'col-md-8': 'col-md-9'">
+                      <input type="text" class=" form-control form-control-sm" formControlName="skillList" placeholder="Eg: C, C++, Java, Python ...">
+                    </td>
+                    <td class="col-md-1" *ngIf="resume.controls.technicalSkills.controls.length > 1">
+                      <button class="btn btn-danger btn-sm" (click)="deleteTechnicalSkillRow(skillIndex)" title="Click to delete this skill">-</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-dark btn-sm float-right" (click)="insertTechnicalSkillRow()" title="Click to add another skill">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>GRADUATE COURSE PROJECTS</u></label>
+            </div>
+          </div>
+          <div class="row" formArrayName="graduateCourseProjects">
+            <div class="col-md-12" *ngFor="let eachDegree of resume.controls.graduateCourseProjects.controls; let projectIndex=index" [formGroupName]="projectIndex">
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Project Subject</label>
+                </div>
+                <div [class]="resume.controls.graduateCourseProjects.controls.length > 1 ? 'col-md-9': 'col-md-10'">
+                  <input type="text" class="form-control form-control-sm" formControlName="projectHeading" placeholder="Eg: Digital Banana | MANIT | Feb-Mar 2017">
+                </div>
+                <div class="col-md-1" *ngIf="resume.controls.graduateCourseProjects.controls.length > 1">
+                  <button class="btn btn-danger btn-sm" (click)="deleteGraduateCourseProject(projectIndex)" title="Click to delete this project">-</button>
+                </div>
+              </div>
+              <br>
+              <div class="row" formGroupName="projectDescription">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Project Description</label>
+                </div>
+                <div class="col-md-10 list-group">
+                  <ul>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
+                    </li>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
+                    </li>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-dark btn-sm float-right" (click)="insertGraduateCourseProject()" title="Click to add another project">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>INTERNSHIPS</u></label>
+            </div>
+          </div>
+          <div class="row" formArrayName="internships">
+            <div class="col-md-12" *ngFor="let eachInternship of resume.controls.internships.controls; let internshipIndex=index" [formGroupName]="internshipIndex">
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Organisation Name</label>
+                </div>
+                <div [class]="resume.controls.internships.controls.length > 1 ? 'col-md-9': 'col-md-10'">
+                  <input type="text" class="form-control form-control-sm" formControlName="orgName" placeholder="Eg: Amazon Inc. | Hyderabad">
+                </div>
+                <div class="col-md-1" *ngIf="resume.controls.internships.controls.length > 1">
+                  <button class="btn btn-danger btn-sm" (click)="deleteInternshipDetails(internshipIndex)" title="Click to delete this internship details">-</button>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Manager Details</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control form-control-sm" formControlName="managerDetails" placeholder="Eg: Mr. ABC XYZ, VP - Amazon S/W services">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Role</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control form-control-sm" formControlName="role" placeholder="Eg: SE - Backend Dev">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Duration</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control form-control-sm" formControlName="duration" placeholder="Eg: May-June 2017">
+                </div>
+              </div>
+              <br>
+              <div class="row" formGroupName="jobDescription">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Job Description</label>
+                </div>
+                <div class="col-md-10 list-group">
+                  <ul>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
+                    </li>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
+                    </li>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-dark btn-sm float-right" (click)="insertNewInternshipDetails()" title="Click to add another internship details">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>WORK EXPERIENCE</u></label>
+            </div>
+          </div>
+          <div class="row" formArrayName="workExperience">
+            <div class="col-md-12" *ngFor="let eachInternship of resume.controls.workExperience.controls; let workIndex=index" [formGroupName]="workIndex">
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Organisation Name</label>
+                </div>
+                <div [class]="resume.controls.workExperience.controls.length > 1 ? 'col-md-9': 'col-md-10'">
+                  <input type="text" class="form-control form-control-sm" formControlName="orgName" placeholder="Eg: Amazon Inc. | Hyderabad">
+                </div>
+                <div class="col-md-1" *ngIf="resume.controls.workExperience.controls.length > 1">
+                  <button class="btn btn-danger btn-sm" (click)="deleteWorkExperienceDetails(workIndex)" title="Click to delete this work experience details">-</button>
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Manager Details</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control form-control-sm" formControlName="managerDetails" placeholder="Eg: Mr. ABC XYZ, VP - Amazon S/W services">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Role</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control form-control-sm" formControlName="role" placeholder="Eg: SE - Backend Dev">
+                </div>
+              </div>
+              <br>
+              <div class="row">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Duration</label>
+                </div>
+                <div class="col-md-10">
+                  <input type="text" class="form-control form-control-sm" formControlName="duration" placeholder="Eg: May-June 2017">
+                </div>
+              </div>
+              <br>
+              <div class="row" formGroupName="jobDescription">
+                <div class="col-md-2">
+                  <label class="font-weight-bold">Job Description</label>
+                </div>
+                <div class="col-md-10 list-group">
+                  <ul>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
+                    </li>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
+                    </li>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
+                    </li>
+                    <li>
+                      <input type="text" class="form-control form-control-sm" formControlName="line4" placeholder="Description Line 4">
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-dark btn-sm float-right" (click)="insertNewWorkExperienceDetails()" title="Click to add another work experience details">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>CO-CURRICULAR ACTIVITIES</u></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12" formGroupName="coCurricularActivities">
+              <ul>
+                <li>
+                  <input type="text" class="form-control form-control-sm" formControlName="line1" placeholder="Description Line 1">
+                </li>
+                <li>
+                  <input type="text" class="form-control form-control-sm" formControlName="line2" placeholder="Description Line 2">
+                </li>
+                <li>
+                  <input type="text" class="form-control form-control-sm" formControlName="line3" placeholder="Description Line 3">
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>PROFILE LINKS</u></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <table class="table" formArrayName="profileLinks">
+                <thead>
+                  <tr class="d-flex">
+                    <th class="col-md-3">App Name</th>
+                    <th [class]="resume.controls.profileLinks.controls.length > 1 ? 'col-md-8' : 'col-md-9'">Link To Profile</th>
+                    <th class="col-md-1" *ngIf="resume.controls.profileLinks.controls.length > 1">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="d-flex" *ngFor="let eachProfileLink of resume.controls.profileLinks.controls; let profileLinkIndex=index" [formGroupName]="profileLinkIndex">
+                    <td class="col-md-3">
+                      <input type="text" class=" form-control form-control-sm" formControlName="appName" placeholder="Eg: Git Hub">
+                    </td>
+                    <td [class]="resume.controls.profileLinks.controls.length > 1 ? 'col-md-8': 'col-md-9'">
+                      <input type="text" class=" form-control form-control-sm" formControlName="profileLink" placeholder="Eg: https://github.com/XYZ">
+                    </td>
+                    <td class="col-md-1" *ngIf="resume.controls.profileLinks.controls.length > 1">
+                      <button class="btn btn-danger btn-sm" (click)="deleteProfileLinkRow(profileLinkIndex)" title="Click to delete this profile">-</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <button class="btn btn-dark btn-sm float-right" (click)="insertProfileLinkRow()" title="Click to add another profile">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12">
+              <label class="font-weight-bolder"><u>LANGUAGES KNOWN</u></label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <input type="text" class=" form-control form-control-sm" formControlName="languagesKnown" placeholder="Eg: Hindi, English, Punjabi">
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-1">
+              <label class="font-weight-bolder">DATE</label>
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control form-control-sm" formControlName="date">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-1">
+              <label class="font-weight-bolder">PLACE</label>
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control form-control-sm" formControlName="place" placeholder="Eg: Mumbai">
+            </div>
+            <div class="col-md-8">
+              <div class="row float-right">
+                <div class="col-md-12">
+                  <label class="font-weight-bolder">
+                    {{resume.controls.name.value.toUpperCase()}}
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+    </form>
+  </div>
+  <br>
+  <div class="container">
+    <div class="row float-right">
+      <button class="btn btn-primary" (click)="onClickDownload()">Download PDF</button>
     </div>
-    <br>
-	</form>
-</div>
-<br>
-<div class="container">
-  <div class="row float-right">
-    <button class="btn btn-primary">Download PDF</button>
   </div>
 </div>
